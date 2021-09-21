@@ -1,0 +1,84 @@
+@using LT.DigitalOffice.GUI.Properties
+@using LT.DigitalOffice.GUI.Services.Interfaces
+@using LT.DigitalOffice.GUI.Services.ApiClients.MessageService
+
+@inject IMessageService messageService
+
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
+     style=@(_isOpenWorkspace ? "width: 280px; height: 653px;" : "display:none !important;")>
+    <div style="display:flex;">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <img class="rounded-circle"
+                 src="data:image/@workspace.Image?.Extension;base64,@workspace.Image?.Content"
+                 alt="icon" />
+            <span class="fs-4">@workspace.Name</span>
+        </a>
+        <div class="dropdown">
+            <button 
+                class="btn btn-secondary" 
+                type="button" 
+                id="dropdown-menu" 
+                data-bs-toggle="dropdown" 
+                aria-expanded="false">
+                <i class="bi bi-three-dots">
+                </i>
+            </button>
+            <EditWorkspace/>
+        </div>
+    </div>
+    <hr>
+    <ul class="list-unstyled ps-0">
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#channels-collapse" aria-expanded="false">
+                @Resources.Channels
+            </button>
+            <div class="collapse" id="channels-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="#" class="text-white rounded">do-backend</a></li>
+                    <li><a href="#" class="text-white rounded">do-frontend</a></li>
+                    <li><a href="#" class="text-white rounded">Reports</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="border-top my-3"></li>
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#direct-collapse" aria-expanded="false">
+                @Resources.DirectMessage
+            </button>
+            <div class="collapse" id="direct-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="#" class="text-white rounded">Ivan Ivanov</a></li>
+                    <li><a href="#" class="text-white rounded">Ivan Ivanov</a></li>
+                    <li><a href="#" class="text-white rounded">Ivan Ivanov</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    <div class="dropdown">
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Guid WorkspaceId { get; set; }
+    public Body workspace = new();
+
+    private bool _isOpenWorkspace;
+
+    public async Task GetWorkspace(Guid workspaceId)
+    {
+        _isOpenWorkspace = !_isOpenWorkspace;
+
+        if (!_isOpenWorkspace)
+        {
+            StateHasChanged();
+
+            return;
+        }
+
+        var response = await messageService.GetWorkspaceAsync(workspaceId);
+        workspace = response.Body;
+
+        StateHasChanged();
+    }
+}

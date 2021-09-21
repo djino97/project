@@ -1,0 +1,31 @@
+﻿@attribute [Authorize]
+
+@using Blazored.SessionStorage
+@using Helpers
+
+@inherits LayoutComponentBase
+@inject ISessionStorageService Storage
+@inject NavigationManager UriHelper
+
+<Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
+    <Authorized>
+        <Header />
+        <div style="display:flex">
+            <div class="body">
+                @Body
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        @Body
+    </NotAuthorized>
+</Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
+
+@code {
+    private Type _instanceBody;
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await Storage.SetItemAsync(Consts.PageUri, UriHelper.Uri);
+    }
+}

@@ -1,0 +1,105 @@
+.dropdown-menu-show {
+    display: unset;
+}
+
+button[id="plus"] {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+
+    background-image: url(/icons/plus.png);
+    background-size: 20px;
+    background-origin: border-box;
+
+    border-radius: 100px;
+}
+
+button[id="plus"]:focus {
+    outline: none;
+}
+
+.dropdown-menu-show {
+    display: unset;
+}
+
+.dropdown-menu-item-hide {
+    display: none;
+}
+
+.dropdown {
+    display: flex;
+
+    align-items: center;
+}
+
+.btn-primary {
+    border-radius: 5px 0 0 5px;
+}
+
+.remove-button {
+    font-weight: bold;
+
+    background-image: url(/icons/remove.png);
+    background-size: 14px;
+    background-origin: border-box;
+    background-color: white;
+
+    border-radius: 28px;
+    border: 1px solid;
+
+    float: right;
+    cursor: pointer;
+    margin-left: 4px;
+
+    width: 11px;
+    height: 14px;
+}
+
+.filter {
+    margin-left: 12px;
+
+    display: flex;
+    cursor:pointer;
+
+    padding: 3px 10px;
+    background: #eeeeee;
+    border-radius: 5px;
+}
+
+.set-filter {
+    display: flex;
+    align-self: center;
+    padding: 5px;
+    margin-left: 15px;
+
+    background-color: #0b5ed7;
+    border-radius: 7px;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.parameter-filter-content {
+    display: flex;
+}
+
+.filter-content {
+    display:flex;
+
+    margin: 18px 0;
+}
+
+.filter-content p:first-child {
+    margin: 0;
+    align-self: center;
+}
+
+.form-select {
+    width: 150px;
+    border-radius: 0 5px 5px 0;
+}
+
+.form-select:focus {
+    box-shadow: 2px 0px 0px 0.25rem rgb(13 110 253 / 25%)
+}

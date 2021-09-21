@@ -1,0 +1,148 @@
+@using Models.Filters
+@using LT.DigitalOffice.GUI.Properties
+@using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService
+@using LT.DigitalOffice.GUI.Services.ApiClients.UserService
+@using LT.DigitalOffice.GUI.Services.Interfaces
+
+<div class="filter-content">
+    <p>@Resources.FilterParameters:</p>
+    <div class="dropdown">
+
+        <div @ref="_projectRef" class=@(_stateFiltersSet !=null && _stateFiltersSet[_projectRef.Id] ? "set-filter" : "filter")>
+            <div class="parameter-filter-content" @onclick="async () => {_searchStateByFilterParameters[_projectRef.Id] = true; await SetFilter(_projectRef);}">
+                
+                @if (_searchStateByFilterParameters != null && _searchStateByFilterParameters[_projectRef.Id])
+                {
+                    <button 
+                        @onclick="() => SearchTask(_projectRef.Id, FindTaskByFilterParam)"
+                        type="button" 
+                        class="btn btn-primary">
+                        @Resources.SearchTaskFilterButton
+                    </button>
+                    <select @bind="@_tasksFilters.ProjectId" class="form-select">
+                        <option value="null">-</option>
+
+                        @if (_projectsResponse?.Body != null)
+                        {
+                            @foreach (var project in _projectsResponse.Body)
+                            {
+                                <option value="@project.Id">
+                                    @(string.IsNullOrEmpty(@project.ShortName) ? @project.Name : @project.ShortName)
+                                </option>
+                            }
+                        }
+
+                    </select>
+                }
+                else if (_stateFiltersSet !=null && _stateFiltersSet[_projectRef.Id])
+                {
+                    var project = _projectsResponse?.Body.FirstOrDefault(x => x.Id == _tasksFilters.ProjectId);
+                    @("Project: " + (string.IsNullOrEmpty(project?.ShortName) ? project?.Name : project.ShortName))
+                }
+                else
+                {
+                    @("Project")
+                }
+
+            </div>
+
+            @if (_stateFiltersSet !=null && (_stateFiltersSet[_projectRef.Id] || _searchStateByFilterParameters[_projectRef.Id]))
+            {
+                <button class="remove-button" @onclick="() => RemoveFilter(isRemoveFilter: true, _projectRef.Id)"></button>
+            }
+
+        </div>
+        
+
+        <div @ref="_statusRef" class=@(_stateFiltersSet !=null && _stateFiltersSet[_statusRef.Id] ? "set-filter" : "filter")>
+            <div class="parameter-filter-content" @onclick="async () => {_searchStateByFilterParameters[_statusRef.Id] = true; await SetFilter(_statusRef);}">
+               
+                @if (_searchStateByFilterParameters != null && _searchStateByFilterParameters[_statusRef.Id])
+                {
+                    <button 
+                        @onclick="() => SearchTask(_statusRef.Id, FindTaskByFilterParam)"
+                        type="button" 
+                        class="btn btn-primary">
+                        @Resources.SearchTaskFilterButton
+                    </button>
+                    <select @bind="@_tasksFilters.StatusId" class="form-select">
+                        <option value="null">-</option>
+
+                        @if (_taskPropertyResponse?.Body != null)
+                        {
+                            @foreach (var status in _taskPropertyResponse.Body)
+                            {
+                                <option value="@status.Id">
+                                    @status.Name
+                                </option>
+                            }
+                        }
+
+                    </select>
+                }
+                else if (_stateFiltersSet !=null && _stateFiltersSet[_statusRef.Id])
+                {
+                    @("Satus: " + _taskPropertyResponse?.Body.FirstOrDefault(x => x.Id == _tasksFilters.StatusId)?.Name)
+                }
+                else
+                {
+                    @("Status")
+                }
+
+            </div>
+
+            @if (_stateFiltersSet !=null && (_stateFiltersSet[_statusRef.Id] || _searchStateByFilterParameters[_statusRef.Id]))
+            {
+                <button class="remove-button" @onclick="() => RemoveFilter(isRemoveFilter: true, _statusRef.Id)"></button>
+            }
+
+        </div>
+
+        <div @ref="_assignedToRef" class=@(_stateFiltersSet !=null && _stateFiltersSet[_assignedToRef.Id] ? "set-filter" : "filter")>
+            <div class="parameter-filter-content" @onclick="async () => {_searchStateByFilterParameters[_assignedToRef.Id] = true; await SetFilter(_assignedToRef);}">
+                
+                @if (_searchStateByFilterParameters != null && _searchStateByFilterParameters[_assignedToRef.Id])
+                {
+                    <button 
+                        @onclick="() => SearchTask(_assignedToRef.Id, FindTaskByFilterParam)"
+                        type="button" 
+                        class="btn btn-primary">
+                        @Resources.SearchTaskFilterButton
+                    </button>
+                    <select @bind="@_tasksFilters.AssignedTo" class="form-select">
+                        <option value="null">-</option>
+
+                        @if (_usersResponse?.Body != null)
+                        {
+                            @foreach (var user in _usersResponse.Body)
+                            {
+                                <option value="@user.Id">
+                                    @(string.Join(" ", user.FirstName, user.LastName))
+                                </option>
+                            }
+                        }
+
+                    </select>
+                }
+                else if (_stateFiltersSet !=null && _stateFiltersSet[_assignedToRef.Id])
+                {
+                    var user = _usersResponse?.Body.FirstOrDefault(x => x.Id == _tasksFilters.AssignedTo);
+                    @("AssignedTo: " + string.Join(" ", user?.FirstName, user?.LastName))
+                }
+                else
+                {
+                    @("AssignedTo")
+                }
+                
+            </div>
+
+            @if (_stateFiltersSet !=null && (_stateFiltersSet[_assignedToRef.Id] || _searchStateByFilterParameters[_assignedToRef.Id]))
+            {
+                <button class="remove-button" @onclick="() => RemoveFilter(isRemoveFilter: true, _assignedToRef.Id)"></button>
+            }
+
+        </div>
+
+
+    </div>
+</div>

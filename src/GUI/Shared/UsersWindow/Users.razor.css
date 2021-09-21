@@ -1,0 +1,50 @@
+.overflow-auto {
+    height: 40vh;
+}
+
+.overflow-auto::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #dadada;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb {
+    background-color: #1b6ec2;
+}
+
+img {
+    background-color: #C4C4C4;
+    border-radius: 60px;
+    height: 40px;
+    width: 40px;
+}
+
+.overflow-auto p {
+    color: #C4C4C4;
+}
+
+.employee-content {
+    padding: 6px;
+    
+    border-radius: 5px;
+    border-bottom: 2px solid white;
+
+    cursor: pointer;
+}
+
+.employee-content p {
+    margin: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.position-employee {
+    float: right;
+    margin-right: 5%;
+    margin-top: 2%;
+}
+
+.select-employee-content {
+    background-color: #7171ff;
+    border-bottom: 2px solid white;
+}

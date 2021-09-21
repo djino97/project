@@ -1,0 +1,132 @@
+.tasks {
+    width: 75%;
+
+    margin-top: 2%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.task {
+    background-color: #f3f3f3;
+    border-radius: 5px;
+
+    margin-bottom: 2%;
+
+    cursor: pointer;
+}
+
+.task:hover {
+    background-color: #e4e4e4;
+}
+
+.overflow-auto {
+    height: 68vh;
+    width: 100%;
+
+    padding-right: 1%;
+}
+
+a[role="button"] {
+    text-decoration: none;
+}
+
+.dropdown {
+    align-self: center;
+}
+
+.dropdown .show {
+    top: -12px !important;
+    left: 45px !important;
+}
+
+.overflow-auto::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #dadada;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb {
+    background-color: #0b5ed7;
+}
+
+button[id="show-more"] {
+    background-color: #0b5ed7;
+    border: none;
+
+    display: block;
+    margin-top: 3px;
+    margin-left: auto;
+    margin-right: auto ;
+}
+
+.nav-scroller {
+    overflow-y: unset;
+}
+
+.nav-scroller .nav {
+    overflow-x: unset;
+}
+
+.task-content_general-info {
+    margin-bottom: 50px;
+}
+
+h2[id="task-name"] {
+    font-size: 20px;
+
+    float: left;
+}
+
+.task-content_general-info h2:first-child {
+    float: left;
+    margin-right: 6%;
+
+    font-size: 20px;
+}
+
+.task-content_general-info div {
+    display: flex;
+    float: left;
+}
+
+.task-content_additional-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-content_additional-info h2:last-child {
+    margin-left: 12%;
+
+    float: right;
+}
+
+.task-content_general-info h2:last-child {
+    float: right;
+    color: #2bbd7a;
+}
+
+h2 {
+    font-size: 16px;
+}
+
+.control-page {
+    display: flex;
+
+    margin-top: 10px;
+    width: 65%;
+    height: 38px;
+
+    transform: scale(0.8);
+    transform-origin: left;
+}
+
+.control-page select[id="items-per-page"]  {
+    width: auto;
+}
+
+.control-page div[id="items-per-page-lable"] {
+    width: 115px;
+    align-self: center;
+}
+

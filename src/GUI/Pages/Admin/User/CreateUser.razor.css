@@ -1,0 +1,36 @@
+﻿.create-user_container,
+.create-user_personal-container,
+.create-user_service-container,
+.create-user_private-container {
+    display: flex;
+}
+
+.create-user_container {
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.create-user_personal-container {
+    width: 55%;
+
+    flex-direction: column;
+}
+
+.create-user_service-container {
+    width: 40%;
+
+    flex-direction: column;
+}
+
+.create-user_actions-container {
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+.item-group {
+    min-height: 80px;
+
+    margin: 5px 0;
+}

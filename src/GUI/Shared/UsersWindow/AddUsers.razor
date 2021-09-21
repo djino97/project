@@ -1,0 +1,61 @@
+@using LT.DigitalOffice.GUI.Properties;
+
+<p>@Resources.AddingProjectEmployees</p>
+
+<input 
+    type="text" 
+    class="form-control" 
+    aria-label="Username"
+    aria-describedby="basic-addon1"
+    placeholder="@Resources.SearchEmployeePlaceholder" />
+
+<div style="display: flow-root">
+    <div class="found-employes-content">
+        <p>@Resources.FoundProjectEmployees</p>
+        <Users 
+            @ref="_foundEmployeesComponent" 
+            Users="FoundEmployees" 
+            HideEmployees="_hideFoundEmployees"
+            StatesSelectedEmployees="_statesSelectedFoundEmployees" />
+    </div>
+    <div class="managed-employes">
+        <button 
+            type="button" 
+            class="btn btn-primary" 
+            data-toggle="modal"
+            @onclick="ClickAddEmployees">
+                @Resources.ProjectEmployeeAddButton
+        </button>
+        <button 
+            type="button" 
+            class="btn btn-primary" 
+            data-toggle="modal"
+            @onclick="ClickRemoveSelectedEmployees">
+                @Resources.ProjectEmployeeRemoveButton
+        </button>
+    </div>
+    <div class="selected-employes-content">
+        <p>@Resources.SelectedProjectEmployees</p>
+        <div class="overflow-auto">
+            <Users 
+                @ref="_selectedEmployeesComponent" 
+                Users="_selectedEmployees"
+                HideEmployees="_hideSelectedEmployees" 
+                StatesSelectedEmployees="_statesSelectedAddedEmployees" />
+        </div>
+    </div>
+</div>
+<div id="action-buttons">
+    <button 
+        type="button" 
+        class="btn btn-primary"
+        @onclick="@(() => IsShowEmployeesFormChanged.InvokeAsync(false))">
+        @Resources.ProjectModalBackButton
+    </button>
+    <button 
+        type="submit" 
+        class="btn btn-primary" 
+        @onclick="() => _projectService.CreateProject(ProjectRequest)">
+            @Resources.ModalFinishButton
+    </button>
+</div>

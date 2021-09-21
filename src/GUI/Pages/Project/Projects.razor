@@ -1,0 +1,184 @@
+﻿@page "/projects"
+@attribute [Authorize]
+
+@using LT.DigitalOffice.GUI.Properties;
+@using LT.DigitalOffice.GUI.Pages.Project.ProjectWindow;
+@using LT.DigitalOffice.GUI.Pages.Project.CreateProject.ModalWindow
+
+<div class="nav-scroller bg-body shadow-sm">
+    <nav class="nav nav-underline" aria-label="Projects navigation">
+        <a 
+            href="javascript:void(0)"  
+            class="nav-link"
+            data-toggle="modal"
+            data-target="#сreate-project-modal-center">
+            @Resources.CreateNewProject
+        </a>
+    </nav>
+</div>
+
+<div class="projects">
+    <CreateProjectModalWindow />
+    @* <div class="projects-tools">
+
+        <CreateProjectModalWindow />
+
+        <input 
+            type="text" 
+            class="form-control" 
+            placeholder="search projects" 
+            @bind-value="_searchValue" 
+            @bind-value:event="oninput" 
+            @onkeypress="SearchProjectsAsync"/>
+        <p>filters:</p>
+
+        <div class="dropdown">
+
+            <button
+                type="button"
+                id="plus"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                @onclick="ShowDropdownMenu">
+            </button>
+
+            <div class="dropdown-menu @(_isShowDropdownMenu ? "dropdown-menu-show" : "")" aria-labelledby="plus">
+                <a
+                    @ref=_projectNameRef
+                    class="@GetStyleFiltersOfDropdown(_projectNameRef)"
+                    href="javascript: void(0);"
+                    @onclick="() => SetFilter(_projectNameRef)">
+                    name
+                </a>
+                <a
+                    @ref=_shortNameRef
+                    class="@GetStyleFiltersOfDropdown(_shortNameRef)"
+                    href="javascript: void(0);" @onclick="() => SetFilter(_shortNameRef)">
+                    short name
+                </a>
+                <a
+                    @ref=_departmentRef
+                    class="@GetStyleFiltersOfDropdown(_departmentRef)"
+                    href="javascript: void(0);"
+                    @onclick="() => SetFilter(_departmentRef)">
+                    department
+                </a>
+            </div>
+
+        </div>
+
+        @if (stateCheck(_projectNameRef, _showStateOfFiltersDropdown))
+        {
+            <div class=@(GetStyleFilter(_projectNameRef.Id)) @onclick="() => _useFilterId = _projectNameRef.Id">
+                name: @_projectsFilter.Name
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _projectNameRef.Id)"></button>
+            </div>
+        }
+
+        @if (stateCheck(_shortNameRef, _showStateOfFiltersDropdown))
+        {
+            <div class=@(GetStyleFilter(_shortNameRef.Id)) @onclick="() => _useFilterId = _shortNameRef.Id">
+                short name: @_projectsFilter.ShortName
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _shortNameRef.Id)"></button>
+            </div>
+        }
+
+        @if (stateCheck(_departmentRef, _showStateOfFiltersDropdown))
+        {
+            <div class=@(GetStyleFilter(_departmentRef.Id)) @onclick="() => _useFilterId = _departmentRef.Id">
+                department: @_projectsFilter.Department
+                <button class="remove-button" @onclick="() => SetValueToFilter(isRemoveFilter: true, _departmentRef.Id)"></button>
+            </div>
+        }
+
+    </div> *@
+
+    <ProjectModalWindow @ref="_projectWindow"/>
+
+    <div class="overflow-auto">
+
+        @if (_projectsInfo is not null)
+        {
+            @foreach (var project in _projectsInfo)
+            {
+                <div 
+                    class="project" 
+                    @onclick="() => _projectWindow.GetProjectAsync(project.Id)"
+                    data-toggle="modal" 
+                    data-target="#project-modal-center">
+
+                    <div class="project-body">
+
+                        <div class="project-body_general-info">
+                            <h1>@project.Name @(string.IsNullOrEmpty(project.ShortName) ? null : $"- {project.ShortName}")</h1>
+                            <p>@project.Status.ToString()</P>
+                        </div>
+                        <p>@project.Description</p>
+
+                        <div class="project-body_addition-info">
+                            <p>@Resources.ProjectDepartment: @project.Department.Name</p>
+                            <p style="position:absolute; right:0">@Resources.Creation: @(((DateTime)project.CreatedAtUtc).ToShortDateString())</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+        }
+
+    </div>
+
+    <div class="control-page">
+            <div id="items-per-page-lable"> 
+                @Resources.ItemsPerPage:
+            </div>
+            <select id="items-per-page" @onchange="(ChangeEventArgs e) => SetTakeCount(e)" class="form-select">
+                <option selected=@_takeCountDefault>@_takeCountDefault</option>
+                <option value=@(_takeCountDefault * 2)>@(_takeCountDefault * 2)</option>
+                <option value=@(_takeCountDefault * 3)>@(_takeCountDefault * 3)</option>
+             </select>
+        <div>
+            <nav aria-label="Projects navigation">
+                <ul class="pagination">
+                    <li class="page-item @(_skipCount == 0 ? "disabled" : "")">
+                        <a 
+                            class="page-link" 
+                            href="javascript:void(0)" 
+                            @onclick="() => GetProjectsPageAsync(_skipCount - _takeCount)">
+                            @Resources.PreviousPage
+                        </a>
+                    </li>
+                        @for(int i=0; i < Math.Ceiling(_totalCount / (double)_takeCount); i++)
+                        {
+                            int y = i;
+                            <li class="page-item">
+                                <a 
+                                    class="page-link" 
+                                    href="javascript:void(0)" 
+                                    @onclick="async () => await GetProjectsPageAsync(y * _takeCount)">
+                                    @(i + 1)
+                                </a>
+                            </li>
+                        }
+                    <li class="page-item @(_skipCount >= _totalCount - _takeCount ? "disabled" : "")">
+                        <a
+                            class="page-link" 
+                            href="javascript:void(0)" 
+                            @onclick="() => GetProjectsPageAsync(_skipCount + _takeCount)">
+                            @Resources.NextPage
+                        </a>
+                    </li>
+                 </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div>
+        @if (_projectsInfo is not null && _projectsInfo.Count >= _takeCount && _projectsInfo.Count != _totalCount)
+        {
+            <button type="button" class="btn btn-primary" id="show-more" @onclick="ChangeProjectsCountAsync">@Resources.ShowMore</button>
+        }
+    </div>
+
+</div>

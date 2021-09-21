@@ -1,0 +1,212 @@
+@media (min-width: 576px) 
+{
+    .modal-dialog {
+        max-width: 75%;
+    }
+}
+
+input {
+    height: 40px;
+}
+
+input[id="planned-time-task"] {
+    width: 25%;
+}
+
+.modal-content {
+    border: none;
+    border-radius: .5rem;
+}
+
+.modal-body {
+    padding: 1rem 2.5rem;
+}
+
+.modal-body, .modal-footer {
+    background-color: #f8f9fa;
+}
+
+.modal-header, .modal-footer {
+    border: none;
+    border-radius: .5rem .5rem 0 0;
+}
+
+.modal-footer {
+    padding: .75rem 2.5rem;
+}
+
+.modal-title {
+    color: white;
+    font-size: 1.4rem;
+}
+
+.modal-header {
+    padding: 0.5rem 2.5rem;
+    background-color: black;
+}
+
+.close {
+    color: white;
+    font-size: 26px;
+
+    border: none;
+    background-color: black;
+}
+
+.task-content {
+    margin: 15px 0;
+}
+
+.task-content_header {
+    height: 70px;
+}
+
+.task-content_header input {
+    width: 55%;
+
+    position: relative;
+    float: left;
+}
+
+.task-content_header-info {
+    display:flex;
+
+    margin-bottom: 40px;
+}
+
+.task-content_header-info div[id="feature-task"],div[id="project-task"]{
+    height: 25px;
+
+    padding: 0 25px;
+
+    font-size: 15px;
+    text-align: center;
+    color: white;
+
+    border-radius: 5px;
+
+    -webkit-transform: skew(-32deg);
+}
+
+.task-content_header-info div[id="feature-task"] {
+    position:absolute;
+
+    background-color: #1a794e;
+}
+
+.task-content_header-info div[id="project-task"] {
+    margin-left: 95px;
+    padding-left: 30px;
+
+    background-color: #1d2ecc;
+}
+
+.task-content_header-info div[id="project-task"] div, div[id="feature-task"] div{
+    -webkit-transform: skew(32deg);
+}
+
+h1 {
+    margin-bottom: 10px;
+
+    transform: scale(0.8);
+    transform-origin: left;
+
+    position: relative;
+    float: left;
+}
+
+.btn-link {
+    padding: .4rem 1rem;
+
+    width: -webkit-fill-available;
+    text-align: start;
+}
+
+.card-header {
+    padding: 0;
+
+    background: linear-gradient(95deg, #7777775e, transparent)
+}
+
+.btn-link {
+    text-decoration: none;
+}
+
+.card {
+    border: none;
+
+    background-color: #f8f9fa;
+}
+
+.card-header {
+    background: linear-gradient(95deg, #c1c1c15e, transparent);
+
+    margin-bottom: 22px;
+
+    border: none;
+    border-radius: 10px;
+}
+
+.btn-check:focus+.btn, .btn:focus {
+    box-shadow: none;
+}
+
+.task-content_general-info {
+    margin-bottom: 30px;
+}
+
+.subtasks-content_table-header {
+    height: 45px;
+
+    padding: 0 10px;
+}
+
+.subtasks-content_table-header p:first-child {
+    float: left;
+}
+
+.subtasks-content_table-header p:last-child {
+    float: right;
+
+    margin-right: 10px;
+}
+
+.subtasks-content_table-body {
+    height: 30px;
+    cursor: pointer;
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+
+.subtasks-content_table-body:hover {
+    background-color:#bfd9ff;
+}
+
+.subtasks-content_table-body p:first-child {
+    float: left;
+
+    margin-bottom: 0;
+}
+
+.subtasks-content_table-body p:last-child {
+    float: right;
+
+    margin-bottom: 0;
+}
+
+.form-select {
+    width: 40%;
+}
+
+input, select, textarea {
+    background-color: #efefef;
+    border: none;
+}
+
+button[type="button"] {
+    height: 40px;
+    padding: 0 32px;
+
+    position: relative;
+    float: right;
+}

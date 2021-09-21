@@ -1,0 +1,42 @@
+@media (min-width: 576px) 
+{
+    .modal-dialog {
+        max-width: 75%;
+    }
+}
+
+.modal-content {
+    border: none;
+    border-radius: .5rem;
+}
+
+.modal-body {
+    padding: 1rem 2.5rem;
+}
+
+.modal-header, .modal-footer {
+    border: none;
+    border-radius: .5rem .5rem 0 0;
+}
+
+.modal-footer {
+    padding: .75rem 2.5rem;
+}
+
+.modal-title {
+    color: white;
+    font-size: 1.4rem;
+}
+
+.modal-header {
+    padding: 0.5rem 2.5rem;
+    background-color: black;
+}
+
+.close {
+    color: white;
+    font-size: 26px;
+
+    border: none;
+    background-color: black;
+}

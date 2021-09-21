@@ -1,0 +1,60 @@
+﻿@attribute [Authorize]
+
+@using LT.DigitalOffice.GUI.Services.Interfaces;
+@using LT.DigitalOffice.GUI.Properties;
+
+@inject IUserService _userService
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand">@Resources.SiteName</a>
+        <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation"
+                onclick="javascript:document.querySelector('.offcanvas-collapse').classList.toggle('open')">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="#">@Resources.News</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">@Resources.Department</a></li>
+                <li class="nav-item">
+                    <div class="dropdown show">
+                        <a 
+                            class="btn btn-secondary dropdown-toggle" 
+                            href="javascript:void(0)" 
+                            role="button" 
+                            id="dropdownMenuLink" 
+                            data-toggle="dropdown" 
+                            aria-haspopup="true" 
+                            aria-expanded="false">
+                            @Resources.Projects
+                        </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="projects">@Resources.Projects</a>
+                                <a class="dropdown-item" href="backlog">@Resources.BacklogPage</a>
+                            </div>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="messages">@Resources.Messages</a></li>
+                <li class="nav-item"><a class="nav-link" href="admin">@Resources.Admin</a></li>
+            </ul>
+            <form class="d-flex" style="margin-left:10px">
+                <input class="form-control me-2" type="search" placeholder="@Resources.Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">@Resources.Search</button>
+            </form>
+            <img src="" alt="" class="rounded-circle">
+            <a class="nav-link" id="user-name" href="#" data-toggle="modal" data-target="#exampleModalLong" @onclick="async () => await _userWindow.GetUserData()">@userName</a>
+        </div>
+    </div>
+</nav>
+
+<UserWindow @ref="_userWindow"/>
+
+@code {
+    private string userName;
+    private UserWindow _userWindow;
+
+    protected async override Task OnInitializedAsync()
+    {
+        userName = await _userService.GetUserNameAsync();
+    }
+}

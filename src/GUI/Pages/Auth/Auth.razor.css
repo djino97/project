@@ -1,0 +1,34 @@
+﻿.auth-container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    top: 0;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+.auth-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 350px;
+}
+
+.item-group {
+    min-height: 60px;
+    width: 100%;
+
+    margin: 5px 0;
+}
+
+.error_text {
+    color: red;
+}
+
+.btn {
+    width: 100px;
+}

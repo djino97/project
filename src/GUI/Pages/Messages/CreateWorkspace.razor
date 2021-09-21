@@ -1,0 +1,96 @@
+@using Services.ApiClients.MessageService
+@using Services.Interfaces
+@using LT.DigitalOffice.GUI.Shared
+@using LT.DigitalOffice.GUI.Properties
+
+@inject IMessageService MessageService;
+
+<div class=@(IsOpenCreateWorkspaceWindow ? "create-workspace-window" : "create-workspace-window-hide")>
+    <p>@Resources.CreateWorkspace</p>
+    <hr>
+
+    <label for="name">@Resources.WorkspaceName <font color="red">*</font> </label>
+    <input id="name" @bind=@_request.Name type="text" class="form-control" aria-describedby="basic-addon1" />
+
+    <label for="description">@Resources.WorkspaceDescription</label>
+    <textarea rows="3" @bind=@_request.Description id="description" type="text" class="form-control"
+        aria-describedby="basic-addon1"></textarea>
+
+    <label for="image">@Resources.WorkspaceImage</label>
+    <InputFile OnChange="@LoadFile" style="margin-bottom: 20px;"/>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#snackbar-modal"
+        @onclick="CreateWorkspaceAsync">
+        @Resources.ModalFinishButton
+    </button>
+
+    <Snackbar DataTarget="snackbar-modal" IsSuccessOperation=@_isSuccessOperation Message=@_messageUser />
+</div>
+
+
+@code {
+    [Parameter]
+    public bool IsOpenCreateWorkspaceWindow { get; set; }
+
+    private string _messageUser;
+    private bool _isSuccessOperation;
+
+    private CreateWorkspaceRequest _request;
+
+    protected override void OnInitialized()
+    {
+        _request = new();
+    }
+
+    public async Task CreateWorkspaceAsync()
+    {
+        try
+        {
+            var response = await MessageService.CreateWorkspaceAsync(_request);
+
+            if (response.Status == OperationResultStatusType.FullSuccess)
+            {
+                _messageUser = $"The task was created successfully!";
+                _isSuccessOperation = true;
+
+                return;
+            }
+
+            _messageUser = $"Something went wrong, please try again later.\nMessage: { string.Join("", response.Errors) }";
+        }
+        catch (ApiException<ErrorResponse> ex)
+        {
+            _isSuccessOperation = false;
+            _messageUser = $"Something went wrong, please try again later.\nMessage: { ex.Result.Message }";
+        }
+        catch (Exception)
+        {
+            _isSuccessOperation = false;
+            _messageUser = $"Something went wrong, please try again later.";
+        }
+    }
+
+    private async Task LoadFile(InputFileChangeEventArgs e)
+    {
+        ImageConsist image = new();
+        List<IBrowserFile> files = new();
+
+        foreach(var file in e.GetMultipleFiles())
+        {
+            try
+            {
+                List<string> imageData = new List<string>(file.Name.Split("."));
+                image.Extension = string.Join("", ".", imageData.Last());
+
+                var fileContent = new StreamContent(file.OpenReadStream(1024 * 1024 * 15));
+                image.Content = Convert.ToBase64String(await fileContent.ReadAsByteArrayAsync());
+            }
+            catch (Exception)
+            {
+                 _messageUser = $"Image did not load, please try again later.";
+            }
+        }
+
+        _request.Image = image;
+    }
+}

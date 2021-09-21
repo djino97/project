@@ -1,0 +1,53 @@
+
+.found-employes-content {
+    float: left;
+
+    width: 30%;
+}
+
+.selected-employes-content  {
+    float: right;
+
+    width: 30%;
+}
+
+.managed-employes {
+    display: inline-grid;
+
+    margin-top: 20vh;
+    margin-left: 14%;
+
+    width: 15%;
+}
+
+.managed-employes button:first-child {
+    margin-bottom: 10px;
+}
+
+input {
+    color: black;
+
+    width: 45%;
+
+    margin-bottom: 25px;
+
+    border: none;
+    background-color: #f5f5f5;
+}
+
+div[id="action-buttons"] {
+    float: right;
+
+    margin-top: 28px;
+
+    width: 35%;
+}
+
+div[id="action-buttons"] button[type="button"] {
+    margin-right: 12%;
+}
+
+div[id="action-buttons"] button{
+    width: 42%;
+    height: 40px;
+}

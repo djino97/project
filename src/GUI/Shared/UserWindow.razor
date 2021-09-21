@@ -1,0 +1,44 @@
+@using Blazored.SessionStorage
+@using Helpers
+@using LT.DigitalOffice.GUI.Services.Interfaces
+@using Services.ApiClients.FileService
+
+@inject IAuthService authService
+@inject IFileService fileService
+@inject ISessionStorageService storage
+
+<div class="modal fade bd-example-modal-sm" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        @if (_response != null)
+        {
+            <img src="data:image/@_response.Body.Extension;base64,@_response.Body.Content" class="rounded-circle"/>
+        }
+        else
+        {
+            <img src="icons/default-user-avatar.png"/>
+        }
+        <p>@userName</p>
+      <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" @onclick="LogoutAsync">Logout</button>
+    </div>
+  </div>
+</div>
+
+@code {
+    private string userName;
+    private OperationResultResponseImageInfo _response;
+    
+    private async Task LogoutAsync()
+    {
+        await authService.LogoutAsync();
+    }
+
+    public async Task GetUserData()
+    {
+        _response = await fileService.GetUserAvatarAsync();
+
+        userName = await storage.GetItemAsync<string>(Consts.UserName);
+
+        StateHasChanged();
+    }
+}

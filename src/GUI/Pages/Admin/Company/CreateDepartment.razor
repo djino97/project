@@ -1,0 +1,44 @@
+﻿@using LT.DigitalOffice.GUI.Services.Interfaces;
+@using LT.DigitalOffice.GUI.Properties;
+
+@inject ICompanyService companyService
+@inject NavigationManager UriHelper
+
+<EditForm Model="@_departmentData" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="create-department_container">
+        <div class="item-group">
+            <label for="create-department_name">@Resources.DepartmentName<font color="red">*</font></label>
+            <input @bind-value="_departmentData.Name"
+                   type="text"
+                   id="create-department_name"
+                   class="form-control"
+                   @onkeyup="@((k) => {
+                               if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                   _descriptionInput.FocusAsync();})" />
+            <ValidationMessage style="font-size: 0.7em;" For="() => _departmentData.Name" />
+        </div>
+        <div class="item-group_textarea">
+            <label for="create-department_description">@Resources.DepartmentDescription</label>
+            <textarea @bind="_departmentData.Description"
+                      @ref="_descriptionInput"
+                      type="text"
+                      id="create-department_description"
+                      class="form-control"
+                      @onkeyup="@((k) => {
+                                  if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                      _directorSelect.FocusAsync();})" />
+            <ValidationMessage style="font-size: 0.7em;" For="() => _departmentData.Description" />
+        </div>
+        <div class="create-department_actions-container">
+            <button class="btn btn-primary"
+                    type="submit"
+                    data-toggle="modal"
+                    data-target="#create-department_snack"
+                    >@Resources.CreateDepartment
+            </button>
+        </div>
+    </div>
+    <Snackbar DataTarget="create-department_snack" Message=@_message IsSuccessOperation=@_isSuccessOperation />
+</EditForm>
+

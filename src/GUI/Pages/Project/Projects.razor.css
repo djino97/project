@@ -1,0 +1,172 @@
+.projects {
+    width: 75%;
+    margin: 20px auto;
+}
+
+.projects-tools {
+    display: flex;
+    margin-bottom: 30px;
+
+    align-items: baseline;
+
+    box-sizing: border-box
+}
+
+button.btn.btn-primary {
+    background-color: #0b5ed7;
+    border: none;
+}
+
+button[id="plus"] {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+
+    background-image: url(/icons/plus.png);
+    background-size: 20px;
+    background-origin: border-box;
+
+    border-radius: 100px;
+}
+
+button[id="plus"]:focus {
+    outline: none;
+}
+
+.dropdown-menu-show {
+    display: unset;
+}
+
+.dropdown-menu-item-hide {
+    display: none;
+}
+
+.remove-button {
+    font-weight: bold;
+
+    background-image: url(/icons/remove.png);
+    background-size: 14px;
+    background-origin: border-box;
+    background-color: white;
+
+    border-radius: 28px;
+    border: 1px solid #7ac7ff;
+
+    float: right;
+    cursor: pointer;
+    margin-left: 4px;
+
+    width: 11px;
+    height: 14px;
+}
+
+.remove-button:focus {
+    outline: none;
+}
+
+.projects input {
+    width: 32%;
+    height: 50%;
+    margin-right: 3%;
+
+    border: 2px solid #7AC7FF
+}
+
+.project {
+    background-color: #f3f3f3;
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    margin-bottom: 1%;
+}
+
+.project:hover {
+    background-color: #e4e4e4;
+}
+
+.project-body {
+    padding: 12px;
+}
+
+p {
+    margin-bottom: 6px;
+}
+
+.overflow-auto {
+    height: 69vh;
+
+    padding-right: 1%;
+}
+
+.project-body_general-info {
+    height: 35px;
+}
+
+.project-body_general-info h1{
+    position: relative;
+    float: left;
+}
+
+.project-body_general-info p{
+    position: relative;
+    float: right;
+}
+
+.project-body_addition-info {
+    position: relative;
+    display: flex;
+}
+
+.project h1, h2 {
+    font-size: 1.3rem;
+}
+
+.project-addition-info p {
+    margin-bottom: 0;
+}
+
+.overflow-auto::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #dadada;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb {
+    background-color: #0b5ed7;
+}
+
+.filter {
+    margin-left: 2%; 
+    cursor:pointer;
+}
+
+.set-filter {
+    margin-left: 2%;
+    padding: 3px;
+
+    background-color: #7ac7ff;
+    border-radius: 7px;
+
+    color: white;
+}
+
+.control-page {
+    display: flex;
+
+    margin-top: 4px;
+    width: 65%;
+    height: 38px;
+
+    transform: scale(0.8);
+    transform-origin: left;
+}
+
+.control-page select[id="items-per-page"]  {
+    width: auto;
+}
+
+.control-page div[id="items-per-page-lable"] {
+    width: 115px;
+    align-self: center;
+}

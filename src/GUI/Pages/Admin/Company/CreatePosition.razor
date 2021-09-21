@@ -1,0 +1,41 @@
+﻿@using LT.DigitalOffice.GUI.Services.Interfaces;
+@using LT.DigitalOffice.GUI.Properties;
+
+@inject ICompanyService companyService
+@inject NavigationManager UriHelper
+
+<EditForm Model="@_positionData" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="create-position_container">
+        <div class="item-group">
+            <label for="create-department_name">@Resources.PositionName<font color="red">*</font></label>
+            <input @bind-value="_positionData.Name"
+                   type="text"
+                   id="create-position_name"
+                   class="form-control"
+                   @onkeyup="@((k) => {
+                               if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                   _descriptionInput.FocusAsync();})" />
+            <ValidationMessage style="font-size: 0.7em;" For="() => _positionData.Name" />
+        </div>
+        <div class="item-group_textarea">
+            <label for="create-position_description">@Resources.PositionDescription</label>
+            <textarea @bind="_positionData.Description"
+                      @ref="_descriptionInput"
+                      type="text"
+                      id="create-position_description"
+                      class="form-control" />
+            <ValidationMessage style="font-size: 0.7em;" For="() => _positionData.Description" />
+        </div>
+        <div class="create-position_actions-container">
+            <button class="btn btn-primary"
+                    type="submit"
+                    data-toggle="modal"
+                    data-target="#create-position_snack"
+                    >@Resources.CreatePosition
+            </button>
+        </div>
+    </div>
+    <Snackbar DataTarget="create-position_snack" Message=@_message IsSuccessOperation=@_isSuccessOperation />
+</EditForm>
+

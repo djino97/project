@@ -1,0 +1,57 @@
+﻿@using LT.DigitalOffice.GUI.Properties;
+
+@page "/admin"
+@attribute [Authorize]
+
+<div class="admin-page_container">
+    <div class="company-actions_container">
+        <h4>@Resources.Company</h4>
+        <button type="button"
+                class="btn btn-link"
+                data-toggle="modal"
+                data-target="#createModalCenter"
+                @onclick='(() => { _modalTitle = Resources.CreateDepartment; })'>
+            @Resources.CreateDepartment
+        </button>
+        <button type="button"
+                class="btn btn-link"
+                data-toggle="modal"
+                data-target="#createModalCenter"
+                @onclick='(() => { _modalTitle = Resources.CreatePosition; })'>
+            @Resources.CreatePosition
+        </button>
+    </div>
+    <div class="user-actions_container">
+        <h4>@Resources.Users</h4>
+        <button type="button"
+                class="btn btn-link"
+                data-toggle="modal"
+                data-target="#createModalCenter"
+                @onclick='(() => { _modalTitle = Resources.CreateUser; })'>
+            @Resources.CreateUser
+        </button>
+    </div>
+</div>
+
+<ModalWindow @ref="_modalWindow" >
+    <Title>@_modalTitle</Title>
+    <Body>
+        @if (_modalTitle == Resources.CreateDepartment)
+        {
+            <LT.DigitalOffice.GUI.Pages.Admin.Company.CreateDepartment />
+        }
+        @if (_modalTitle == Resources.CreatePosition)
+        {
+            <LT.DigitalOffice.GUI.Pages.Admin.Company.CreatePosition />
+        }
+        @if (_modalTitle == Resources.CreateUser)
+        {
+            <LT.DigitalOffice.GUI.Pages.Admin.User.CreateUser />
+        }
+    </Body>
+</ModalWindow>
+
+@code {
+    private ModalWindow _modalWindow { get; set; }
+    private string _modalTitle { get; set; }
+}

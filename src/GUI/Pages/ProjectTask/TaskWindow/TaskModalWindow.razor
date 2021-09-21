@@ -1,0 +1,161 @@
+@using LT.DigitalOffice.GUI.Properties
+@using LT.DigitalOffice.GUI.Shared
+@using Services.ApiClients.ProjectService
+
+<div 
+    class="modal fade" 
+    id="task-modal-center" 
+    tabindex="-1" 
+    role="dialog" 
+    aria-labelledby="task-modal-center-title"
+    aria-hidden="true"
+    @onclick="CheckEditingTasks">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" @onclick="() => _isClickContentModal = true">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="task-modal-center-title">@Resources.TaskWindowTitle</h5>
+                <button 
+                    type="button" 
+                    class="close" 
+                    data-dismiss="modal" 
+                    aria-label="Close" 
+                    @onclick="() => _isEditTask = false">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+
+                @if (!_isEditTask)
+                {
+                    <div class="modal-body">
+
+                        @if (_task.Id != Guid.Empty)
+                        {
+                            <div class="task-content">
+
+                                <div>
+                                    <div class="task-content_header">
+                                        <div>
+                                            <h1>
+                                                <span>#@_task.Number - </span>@_task.Name
+                                            </h1>
+                                        </div>
+
+                                        @if (_userRole == ProjectUserRoleType.Manager || IsUserAdmin)
+                                        {
+                                            <button 
+                                                type="button" 
+                                                class="btn btn-primary" 
+                                                @onclick="() => _isEditTask = !_isEditTask">
+                                                    Edit
+                                            </button>
+                                        }
+
+                                    </div>
+                                </div>
+
+                                <div class="task-content_header-info">
+                                    <div id="feature-task">
+                                        <div>@_task.Type.Name</div>
+                                    </div>
+                                    <div id="project-task">
+                                        <div>@_task.Project.Name</div>
+                                    </div>
+                                </div>
+
+                                <div class="task-content_general-info">
+                                    <p>@Resources.TaskAssigned:
+                                        <NavLink href="#" style="text-decoration: none; color: #1d2ecc">
+                                            @(_task.AssignedUser is null ? 
+                                                "-" : string.Join(" ", _task.AssignedUser.FirstName, _task.AssignedUser.LastName))
+                                        </NavLink>
+                                    </p>
+                                    <p>@Resources.Status: @_task.Status.Name</p>
+                                    <p>@Resources.TaskParent: @(_task.ParentTask == null ? "-" : _task.ParentTask.Name)</p>
+                                </div>
+
+                                <div id="accordion">
+                                    <div class="card">
+                                        <div class="card-header" id="headingOne">
+                                            <h5 class="mb-0">
+                                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne"
+                                                aria-expanded="true" aria-controls="collapseOne">
+                                                    @Resources.TaskAdditionalInfo
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                        data-parent="#accordion">
+                                            <div class="card-body">
+                                                <div>
+                                                    <p>@Resources.TaskAuthor:
+                                                        <NavLink href="#" style="text-decoration: none; color: #1d2ecc">
+                                                            @string.Join(" ", _task.CreatedBy.FirstName, _task.CreatedBy.MiddleName)
+                                                        </NavLink>
+                                                    </p>
+                                                    <p>@Resources.TaskPriority: @_task.Priority?.Name</p>
+                                                    <p>@Resources.TaskDateСreation: @_task.CreatedAtUtc</p>
+                                                    <p>@Resources.PlannedTimeTask: @(_task.PlannedMinutes is null ? "-" : _task.PlannedMinutes)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-header" id="headingTwo">
+                                            <h5 class="mb-0">
+                                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo"
+                                                aria-expanded="true" aria-controls="collapseTwo">
+                                                    @Resources.TaskDescription
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                                        data-parent="#accordion">
+                                            <div class="card-body">
+                                                <p>@_task.Description</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-header" id="headingThree">
+                                            <h5 class="mb-0">
+                                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree"
+                                                aria-expanded="true" aria-controls="collapseThree">
+                                                    @Resources.Subtasks
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                                        data-parent="#accordion">
+                                            <div class="card-body">
+
+                                                <div style="width: 60%;">
+
+                                                    <div class="subtasks-content_table-header">
+                                                        <p>@Resources.TaskNameTableHeader</p>
+                                                        <p>@Resources.TaskStatusTableHeader</p>
+                                                    </div>
+
+                                                    @foreach (var subtask in _task.Subtasks)
+                                                    {
+                                                        <div class="subtasks-content_table-body">
+                                                            <p>@subtask.Name</p>
+                                                            <p>-</p>
+                                                        </div>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                }
+                else
+                { 
+                    <EditTaskWindow Task="@_task"/>
+                }
+        </div>
+    </div>
+</div>

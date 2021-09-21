@@ -1,0 +1,45 @@
+@media (min-width: 576px) {
+    .modal-sm {
+        max-width: 380px;
+    }
+}
+
+.modal-content {
+    height: 125px;
+
+    border: none;
+
+    color: white;
+    text-align: center;
+    justify-content: center;
+}
+
+.success {
+    background-color: #25ac25c4;
+}
+
+.fail {
+    background-color: #ce9e0fc2;
+}
+
+.img-success {
+    width: 40px;
+    margin-right: 12px;
+
+    border: solid 2px;
+
+    background-color: white;
+}
+
+.img-fail {
+    width: 40px;
+    margin-right: 12px;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.rounded {
+    border-radius: 4.25rem!important
+}

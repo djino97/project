@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Admin" xml:space="preserve">
+    <value>Администрирование</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Компания</value>
+  </data>
+  <data name="CreateDepartment" xml:space="preserve">
+    <value>Создать департамент</value>
+  </data>
+  <data name="CreateNewProject" xml:space="preserve">
+    <value>Создать новый проект</value>
+  </data>
+  <data name="CreateProjectModal" xml:space="preserve">
+    <value>Создание проекта</value>
+  </data>
+  <data name="FoundProjectEmployees" xml:space="preserve">
+    <value>Найденные сотрудники</value>
+  </data>
+  <data name="CreatePosition" xml:space="preserve">
+    <value>Создать позицию</value>
+  </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>Создать сотрудника</value>
+  </data>
+  <data name="Creation" xml:space="preserve">
+    <value>Создан</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Департамент</value>
+  </data>
+  <data name="DepartmentDescription" xml:space="preserve">
+    <value>Описание департамента</value>
+  </data>
+  <data name="DepartmentDirector" xml:space="preserve">
+    <value>Директор департамента</value>
+  </data>
+  <data name="DepartmentName" xml:space="preserve">
+    <value>Название департамента</value>
+  </data>
+  <data name="E-mail" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Фильтры</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>Забыли ваш пароль</value>
+  </data>
+  <data name="Generate" xml:space="preserve">
+    <value>Сгенерировать</value>
+  </data>
+  <data name="IsAdmin" xml:space="preserve">
+    <value>Администратор системы</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="LoginData" xml:space="preserve">
+    <value>Логин</value>
+  </data>
+  <data name="LoginOrEmailOrPhoneNumber" xml:space="preserve">
+    <value>Логин или почта или номер телефона</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Общение</value>
+  </data>
+  <data name="ProjectDepartment" xml:space="preserve">
+    <value>Департамент</value>
+  </data>
+  <data name="ProjectDescription" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="ProjectEmployeeAddButton" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="ProjectEmployeeRemoveButton" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="ProjectFullNameInput" xml:space="preserve">
+    <value>Введите полное имя проекта</value>
+  </data>
+  <data name="ProjectGeneralInfo" xml:space="preserve">
+    <value>Основные данные</value>
+  </data>
+  <data name="ProjectModalBackButton" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="ModalFinishButton" xml:space="preserve">
+    <value>Завершить</value>
+  </data>
+  <data name="ProjectModalNextButton" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="ProjectName" xml:space="preserve">
+    <value>Полное имя</value>
+  </data>
+  <data name="ProjectShortDescription" xml:space="preserve">
+    <value>Короткое описание</value>
+  </data>
+  <data name="ProjectShortName" xml:space="preserve">
+    <value>Короткое имя</value>
+  </data>
+  <data name="ProjectStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="SelectedProjectEmployees" xml:space="preserve">
+    <value>Выбранные сотрудники</value>
+  </data>
+  <data name="MiddleName" xml:space="preserve">
+    <value>Отчество</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>Новости</value>
+  </data>
+  <data name="NotSelected" xml:space="preserve">
+    <value>Не выбрано</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Позиция</value>
+  </data>
+  <data name="PositionDescription" xml:space="preserve">
+    <value>Описание позиции</value>
+  </data>
+  <data name="PositionName" xml:space="preserve">
+    <value>Наименование позиции</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Проекты</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Ставка</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="SearchProjects" xml:space="preserve">
+    <value>Искать проекты</value>
+  </data>
+  <data name="ShortName" xml:space="preserve">
+    <value>Сокращенное название</value>
+  </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Показать больше</value>
+  </data>
+  <data name="SiteName" xml:space="preserve">
+    <value>Цифровой Офис</value>
+  </data>
+  <data name="StartWorkingAt" xml:space="preserve">
+    <value>Дата принятия на работу</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Пользователи</value>
+  </data>
+  <data name="ProjectCreationModalTitle" xml:space="preserve">
+    <value>Создание проекта</value>
+  </data>
+  <data name="ProjectDepartmentDropdownPlaceholder" xml:space="preserve">
+    <value>Выберите департамент</value>
+  </data>
+  <data name="ProjectDescriptionInputPlaceholder" xml:space="preserve">
+    <value>Введите описание проекта</value>
+  </data>
+  <data name="ProjectFullNameInputPlaceholder" xml:space="preserve">
+    <value>Введите полное имя проекта</value>
+  </data>
+  <data name="ProjectShortDescriptionInputPlaceholder" xml:space="preserve">
+    <value>Введите короткое описание проекта</value>
+  </data>
+  <data name="ProjectShortNameProjectInputPlaceholder" xml:space="preserve">
+    <value>Введите короткое имя проекта</value>
+  </data>
+  <data name="SearchEmployeePlaceholder" xml:space="preserve">
+    <value>Поиск сотрудника</value>
+  </data>
+  <data name="AddingProjectEmployees" xml:space="preserve">
+    <value>Добавление сотрудников</value>
+  </data>
+  <data name="NameTask" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="PlannedTimeTask" xml:space="preserve">
+    <value>Планируемое время выполнения</value>
+  </data>
+  <data name="ProjectTask" xml:space="preserve">
+    <value>Проект</value>
+  </data>
+  <data name="TaskAssigned" xml:space="preserve">
+    <value>Назначенный</value>
+  </data>
+  <data name="TaskCreationModalTitle" xml:space="preserve">
+    <value>Создание задачи</value>
+  </data>
+  <data name="TaskDescription" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="TaskParent" xml:space="preserve">
+    <value>Главная задача</value>
+  </data>
+  <data name="TaskPriority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
+  <data name="TaskStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="TaskType" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="CreateNewWorkItem" xml:space="preserve">
+    <value>Создание новой задачи</value>
+  </data>
+  <data name="TaskAuthor" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="TaskLeadTime" xml:space="preserve">
+    <value>Время выполнения</value>
+  </data>
+  <data name="BacklogPage" xml:space="preserve">
+    <value>Задачи</value>
+  </data>
+  <data name="Subtasks" xml:space="preserve">
+    <value>Подзадачи</value>
+  </data>
+  <data name="TaskDateСreation" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="TaskGeneralInfo" xml:space="preserve">
+    <value>Дополнительная информация</value>
+  </data>
+  <data name="TaskWindowTitle" xml:space="preserve">
+    <value>Задача</value>
+  </data>
+  <data name="EditTaskButton" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="SaveTaskButton" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="TaskNameTableHeader" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="TaskStatusTableHeader" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="ProjectDataCreation" xml:space="preserve">
+    <value>Дата создания</value>
+  </data>
+  <data name="ProjectFiles" xml:space="preserve">
+    <value>Файлы</value>
+  </data>
+  <data name="ProjectWindow" xml:space="preserve">
+    <value>Проект</value>
+  </data>
+  <data name="TaskProjectName" xml:space="preserve">
+    <value>Имя проекта</value>
+  </data>
+  <data name="BacklogSubmenu" xml:space="preserve">
+    <value>Задачи</value>
+  </data>
+  <data name="FirstParameterBacklogSubmenu" xml:space="preserve">
+    <value>Мои задачи</value>
+  </data>
+  <data name="SecondParameterBacklogSubmenu" xml:space="preserve">
+    <value>Все задачи</value>
+  </data>
+  <data name="FilterParameters" xml:space="preserve">
+    <value>Параметры фильтра</value>
+  </data>
+  <data name="SearchTaskFilterButton" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="CreateWorkspace" xml:space="preserve">
+    <value>Создание рабочего пространства</value>
+  </data>
+  <data name="WorkspaceDescription" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="WorkspaceImage" xml:space="preserve">
+    <value>Изображение</value>
+  </data>
+  <data name="WorkspaceName" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="ItemsPerPage" xml:space="preserve">
+    <value>Объекты на странице</value>
+  </data>
+  <data name="NextPage" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="DirectMessage" xml:space="preserve">
+    <value>Личные сообщения</value>
+  </data>
+  <data name="WorkspaceChannels" xml:space="preserve">
+    <value>Каналы</value>
+  </data>
+</root>

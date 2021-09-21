@@ -1,0 +1,16 @@
+.rounded-circle {
+    height: 30px;
+    align-self: center;
+    margin-left: 1.5rem;
+}
+
+.add-workspace-plus {
+    position: fixed;
+    z-index: 1;
+    padding-bottom: 0 !important;
+    background-color: white;
+}
+
+nav a:nth-child(2) {
+    padding-left: 3.5rem;
+}

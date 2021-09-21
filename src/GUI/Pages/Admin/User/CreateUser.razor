@@ -1,0 +1,131 @@
+﻿@using LT.DigitalOffice.GUI.Services.Interfaces;
+@using LT.DigitalOffice.GUI.Properties;
+
+@inject IUserService userService
+@inject ICompanyService companyService
+@inject IAuthService authService
+@inject NavigationManager UriHelper
+
+<EditForm Model="@_userData" OnValidSubmit="@HandleValidSubmitAsync">
+    <DataAnnotationsValidator />
+    <div class="create-user_container">
+        <div class="create-user_personal-container">
+            <div class="item-group">
+                <label for="create-user_first-name">@Resources.FirstName<font color="red">*</font></label>
+                <input @bind-value="_userData.FirstName"
+                       type="text"
+                       id="create-user_first-name"
+                       class="form-control"
+                       @onkeyup="@((k) => {
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       _lastNameInput.FocusAsync();})" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => _userData.FirstName" />
+            </div>
+            <div class="item-group">
+                <label for="create-user_last-name">@Resources.LastName<font color="red">*</font></label>
+                <input @bind-value="_userData.LastName"
+                       @ref="_lastNameInput"
+                       type="text"
+                       id="create-user_last-name"
+                       class="form-control"
+                       @onkeyup="@((k) => {
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       _middleNameInput.FocusAsync();})" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => _userData.LastName" />
+            </div>
+            <div class="item-group">
+                <label for="create-user_middle-name">@Resources.MiddleName</label>
+                <input @bind-value="_userData.MiddleName"
+                       @ref="_middleNameInput"
+                       type="text"
+                       id="create-user_middle-name"
+                       class="form-control"
+                       @onkeyup="@((k) => {
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       _emailInput.FocusAsync();})" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => _userData.MiddleName" />
+            </div>
+            <div class="item-group">
+                <label for="create-user_email">@Resources.Email<font color="red">*</font></label>
+                <input @bind-value="_userCommunication.Value"
+                       @ref="_emailInput"
+                       type="email"
+                       id="create-user_email"
+                       class="form-control"
+                       @onkeyup="@((k) => {
+                                   if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                       _passwordInput.FocusAsync();})" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => _userCommunication.Value" />
+            </div>
+            <div class="item-group">
+                <label for="create-user_password">@Resources.Password</label>
+                <div class="input-group">
+                    <input @bind-value="_userData.Password"
+                           @ref="_passwordInput"
+                           id="create-user_password"
+                           class="form-control"
+                           @onkeyup="@((k) => {
+                                       if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                           _rateSelect.FocusAsync();})" />
+                    <button class="btn btn-primary"
+                            type="button"
+                            @onclick="@GeneratePasswordAsync">
+                        @Resources.Generate
+                    </button>
+                </div>
+                <ValidationMessage style="font-size: 0.7em;" For="() => _userData.Password" />
+            </div>
+            <div>
+                <input @bind-value="_userData.IsAdmin"
+                       type="checkbox"
+                       class="btn btn-outline-primary" />
+                <label for="create-user_is-admin">@Resources.IsAdmin</label>
+            </div>
+        </div>
+
+        <div class="create-user_service-container">
+            <div class="item-group">
+                <label for="create-user_rate">@Resources.Rate<font color="red">*</font></label>
+                <select @bind="_userData.Rate"
+                        @ref="_rateSelect"
+                        id="create-user_rate"
+                        class="form-select"
+                        @onkeyup="@((k) => {
+                                    if (k.Code == "ArrowDown")
+                                        _positionSelect.FocusAsync();})">
+                    @foreach (var rate in _rateValues)
+                    {
+                        <option value="@rate">@rate</option>
+                    }
+                </select>
+            </div>
+            <div class="item-group">
+                <label for="create-user_position">@Resources.Position<font color="red">*</font></label>
+                <select @bind="_userData.PositionId"
+                        @ref="_positionSelect"
+                        id="create-user_position"
+                        class="form-select">
+                    <option value="null" selected>@Resources.NotSelected...</option>
+                    @if (_positions != null)
+                    {
+                        foreach (var position in _positions)
+                        {
+                            <option value="@position.Id">@position.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="create-user_actions-container">
+            <button class="btn btn-primary"
+                    type="submit"
+                    data-toggle="modal"
+                    data-target="#create-user_snack"
+                    >@Resources.CreateUser
+            </button>
+        </div>
+    </div>
+    <Snackbar DataTarget="create-user_snack" Message=@_message IsSuccessOperation=@_isSuccessOperation />
+</EditForm>
+

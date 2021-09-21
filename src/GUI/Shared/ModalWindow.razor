@@ -1,0 +1,31 @@
+﻿<div class="modal fade"
+     id=@DataTarget
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title text-light" id="exampleModalLongTitle">@Title</h5>
+                <button type="button" class="btn-close btn-close-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body" style="color:black">
+                @Body
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string DataTarget { get; set; }
+
+    [Parameter]
+    public RenderFragment Title { get; set; }
+
+    [Parameter]
+    public RenderFragment Body { get; set; }
+}

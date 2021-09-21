@@ -1,0 +1,185 @@
+@using LT.DigitalOffice.GUI.Properties
+@using LT.DigitalOffice.GUI.Shared
+@using LT.DigitalOffice.GUI.Services.ApiClients.ProjectService;
+
+<div class="modal-body">
+
+    <div class="task-content">
+
+        <div class="task-content_header">
+
+            <h1>
+                <span>#@Task.Number - </span>
+            </h1>
+            <input 
+                id="name" 
+                type="text" 
+                class="form-control" 
+                value="@Task.Name"
+                aria-describedby="basic-addon1" 
+                @onchange="e => SetValueToPatchDocument(PatchDocumentPath._Name, e.Value)"/>
+            <button 
+                type="button" 
+                class="btn btn-primary" 
+                @onclick="EditTask"
+                data-toggle="modal"
+                data-target="#edit-task-modal">
+                    @Resources.SaveTaskButton
+            </button>
+
+        </div>
+
+        <Snackbar DataTarget="edit-task-modal" Message=@_messageUser IsSuccessOperation=@(_editTaskResponse?.Body is null ? false : (bool)_editTaskResponse?.Body)/>
+        <div>
+            <p>@Resources.TaskType:
+                <select 
+                value="@Task.Type.Name" 
+                id="taskTypes" 
+                class="form-select"
+                @onchange="e => SetValueToPatchDocument(PatchDocumentPath._TypeId, e.Value)">
+                    @foreach (var type in _taskTypes)
+                    {
+                        <option value=@type.Id>@type.Name</option>
+                    }
+                </select>
+            </p>
+
+            <p style="margin-top: 20px">@Resources.ProjectTask: @Task.Project.Name </p>
+        </div>
+
+        <div class="task-content_general-info">
+            <p>@Resources.TaskAssigned:
+                <select 
+                    value="@Task.AssignedUser?.Id" 
+                    id="taskTypes" 
+                    class="form-select"
+                    @onchange="e => SetValueToPatchDocument(PatchDocumentPath._AssignedTo, e.Value)">
+                    <option value=@Task.AssignedUser?.Id selected>
+                        @(Task.AssignedUser?.Id is null ? "-" : 
+                            string.Join(" ", Task.AssignedUser?.FirstName,Task.AssignedUser?.MiddleName))
+                    </option>
+
+                    @foreach (var user in _projectUsers)
+                    {
+                        <option value=@user.Id>@string.Join(" ", user.FirstName, user.MiddleName)</option>
+                    }
+                </select>
+            </p>
+            <p>@Resources.Status:
+                <select 
+                    value="@Task.Status.Name" 
+                    id="taskTypes" 
+                    class="form-select"
+                    @onchange="e => SetValueToPatchDocument(PatchDocumentPath._StatusId, e.Value)">
+
+                    @foreach (var status in _taskStatuses)
+                    {
+                        <option value=@status.Id>@status.Name</option>
+                    }
+
+                </select>
+            </p>
+        </div>
+
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button 
+                            class="btn btn-link" 
+                            data-toggle="collapse" 
+                            data-target="#collapseOne"
+                            aria-expanded="true" 
+                            aria-controls="collapseOne">
+                            @Resources.TaskAdditionalInfo
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div>
+                            <p>@Resources.TaskAuthor: @string.Join(" ", Task.CreatedBy.FirstName, Task.CreatedBy.MiddleName)</p>
+                            <p>@Resources.TaskPriority:
+                                <select 
+                                    value="@Task.Priority.Id" 
+                                    id="taskTypes" 
+                                    class="form-select"
+                                    @onchange="e => SetValueToPatchDocument(PatchDocumentPath._PriorityId, e.Value)">
+
+                                    @foreach (var priority in _taskPriorities)
+                                    {
+                                        <option value=@priority.Id>@priority.Name</option>
+                                    }
+
+                                </select>
+                            </p>
+                            <p>@Resources.TaskDateСreation: @Task.CreatedAtUtc</p>
+                            <p>@Resources.PlannedTimeTask:
+                                <input 
+                                    id="planned-time-task" 
+                                    type="text" 
+                                    class="form-control" 
+                                    value="@Task.PlannedMinutes" 
+                                    aria-describedby="basic-addon1" 
+                                    @onchange="e => SetValueToPatchDocument(PatchDocumentPath._PlannedMinutes, e.Value)"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button 
+                            class="btn btn-link" 
+                            data-toggle="collapse" 
+                            data-target="#collapseTwo"
+                            aria-expanded="true" 
+                            aria-controls="collapseTwo">
+                            @Resources.TaskDescription
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        <textarea 
+                            rows="5" 
+                            id="description" 
+                            class="form-control" 
+                            aria-label="With textarea"
+                            value="@Task.Description"
+                            @onchange="e => SetValueToPatchDocument(PatchDocumentPath._Description, e.Value)">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree"
+                            aria-expanded="true" aria-controls="collapseThree">
+                            @Resources.Subtasks
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+
+                        <div style="width: 60%;">
+
+                            <div class="subtasks-content_table-header">
+                                <p>@Resources.TaskNameTableHeader</p>
+                                <p>@Resources.TaskStatusTableHeader</p>
+                            </div>
+
+                            @foreach (var subtask in Task.Subtasks)
+                            {
+                                <div class="subtasks-content_table-body">
+                                    <p>@subtask.Name</p>
+                                    <p>-</p>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

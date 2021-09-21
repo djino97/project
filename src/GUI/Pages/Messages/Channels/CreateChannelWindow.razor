@@ -1,0 +1,89 @@
+@using LT.DigitalOffice.GUI.Shared.UsersWindow
+@using LT.DigitalOffice.GUI.Properties
+@using LT.DigitalOffice.GUI.Shared
+@using LT.DigitalOffice.GUI.Services.Interfaces
+@using Services.ApiClients.MessageService
+
+@inject IMessageService MessageService
+
+<ModalWindow DataTarget="create-channel-window">
+    <Title>
+        Create channel
+    </Title>
+    <Body>
+        @if (_isAddUsers)
+        {
+            <AddUsers/>
+        }
+        else
+        {
+            <label for="name">Name</label>
+            <input 
+                id="name" 
+                type="text" 
+                class="form-control"
+                @bind=@_request.Name
+                aria-describedby="basic-addon1"/>
+
+            <div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="channel-checkbox" @bind=@_request.IsPrivate>
+                    <label class="form-check-label" for="channel-checkbox">Make private</label>
+                </div>  
+
+                <a href="javascript:void(0)" @onclick="() => _isAddUsers = true">Add users</a>
+            </div>
+            <button 
+                type="submit"
+                class="btn btn-primary" 
+                data-toggle="modal" 
+                @onclick="CreateChannelAsync"
+                data-target="#snackbar-modal">
+                @Resources.ModalFinishButton
+            </button>
+        }
+    </Body>
+</ModalWindow>
+
+<Snackbar DataTarget="snackbar-modal" IsSuccessOperation=@_isSuccessOperation Message=@_messageUser/>
+
+@code {
+    private bool _isAddUsers;
+    private string _messageUser;
+    private bool _isSuccessOperation;
+    private CreateChannelRequest _request;
+
+    protected override void OnInitialized()
+    {
+        _request = new();
+    }
+
+    private async Task CreateChannelAsync()
+    {
+        try
+        {
+            var response = await MessageService.CreateChannelAsync(_request);
+
+            if (response.Status == OperationResultStatusType.FullSuccess)
+            {
+                _messageUser = $"The channel was created successfully!";
+                _isSuccessOperation = true;
+
+                return;
+            }
+
+            _messageUser = $"Something went wrong, please try again later.\nMessage: { string.Join("", response.Errors) }";
+        }
+        catch (ApiException<ErrorResponse> ex)
+        {
+            _isSuccessOperation = false;
+            _messageUser = $"Something went wrong, please try again later.\nMessage: { ex.Result.Message }";
+        }
+        catch (Exception)
+        {
+            _isSuccessOperation = false;
+            _messageUser = $"Something went wrong, please try again later.";
+        }   
+    }
+
+}

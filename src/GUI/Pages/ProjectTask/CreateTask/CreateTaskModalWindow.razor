@@ -1,0 +1,168 @@
+@using LT.DigitalOffice.GUI.Properties
+
+<EditForm Model="@_taskRequest" OnValidSubmit="@HandleSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="modal fade" id="сreate-task-modal-center" tabindex="-1" role="dialog"
+         aria-labelledby="create-task-modal-center-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="create-task-modal-center-title">@Resources.TaskCreationModalTitle</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+                    <div class="modal-body_name-parent-input">
+						
+                        <div>
+                            <label for="name">@Resources.NameTask<font color="red">*</font></label>
+                            <input id="name"
+                                   type="text"
+                                   class="form-control"
+                                   @bind=_taskRequest.Name
+                                   aria-describedby="basic-addon1" />
+                            <ValidationMessage style="font-size: 0.7em;" For="() => _taskRequest.Name" />
+                        </div>
+
+                        <div>
+                            <label for="parent">@Resources.TaskParent</label>
+                            <select disabled=@(!_selectProjectId.HasValue)
+                                    id="parent"
+                                    @onchange= "e => _taskRequest.ParentId = e.Value as Guid?"
+                                    class="form-select">
+                                <option selected="null">@Resources.NotSelected</option>
+
+                                @foreach (var task in _projectTasks)
+                                {
+                                    <option value=@task.Id>@task.Name</option>
+                                }
+
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-body_additional-inputs">
+
+                        <div class="modal-body_assignee-inputs">
+                            <label for="project">@Resources.ProjectTask<font color="red">*</font></label>
+                            <select @onchange="GetTaskPropertiesAsync"
+                                    id="project"
+                                    class="form-select">
+                                <option value=null>@Resources.NotSelected</option>
+
+                                @foreach (var project in _projects)
+                                {
+                                    <option value=@project.Id>@(project.ShortName ?? project.Name)</option>
+                                }
+
+                            </select>
+
+                            <label for="assignee">@Resources.TaskAssigned</label>
+                            <select disabled=@(!_selectProjectId.HasValue)
+                                    id="assignee"
+                                    @onchange= "e => _taskRequest.AssignedTo = e.Value as Guid?"
+                                    class="form-select">
+                                <option value=null>@Resources.NotSelected</option>
+
+                                @foreach (var user in _projectUsers)
+                                {
+                                    <option value=@user.Id>@string.Join(" ", user.FirstName, user.MiddleName)</option>
+                                }
+
+                            </select>
+                        </div>
+
+                        <div class="modal-body_general-properties-inputs">
+
+                            <label for="status">@Resources.TaskStatus<font color="red">*</font></label>
+                            <select disabled=@(!_selectProjectId.HasValue)
+                                    id="status"
+                                    @bind=_taskRequest.StatusId
+                                    class="form-select">
+                                <option value=null>@Resources.NotSelected</option>
+
+                                @foreach (var status in _taskStatuses)
+                                {
+                                    <option value=@status.Id>@status.Name</option>
+                                }
+
+                            </select>
+
+                            <label for="status">@Resources.TaskType<font color="red">*</font></label>
+                            <select disabled=@(!_selectProjectId.HasValue)
+                                    @bind=_taskRequest.TypeId
+                                    id="status"
+                                    class="form-select">
+                                <option value=null>@Resources.NotSelected</option>
+
+                                @foreach (var type in _taskTypes)
+                                {
+                                    <option value=@type.Id>@type.Name</option>
+                                }
+
+                            </select>
+                        
+						</div>
+
+                        <div class="modal-body_additional-properties-inputs">
+
+                            <label for="priority">@Resources.TaskPriority<font color="red">*</font></label>
+                            <select disabled=@(!_selectProjectId.HasValue)
+                                    @bind=_taskRequest.PriorityId
+                                    id="priority"
+                                    class="form-select">
+                                <option value=null>@Resources.NotSelected</option>
+
+                                @foreach (var priority in _taskPriorities)
+                                {
+                                    <option value=@priority.Id>@priority.Name</option>
+                                }
+
+                            </select>
+
+                            <div>
+                                <label for="planned-minutes">@Resources.PlannedTimeTask</label>
+                                <input id="name"
+                                       type="text"
+                                       class="form-control"
+                                       aria-label="Username"
+                                       @bind=_taskRequest.PlannedMinutes
+                                       aria-describedby="basic-addon1" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <label for="description">@Resources.TaskDescription</label>
+                    <textarea rows="5"
+                              id="description"
+                              class="form-control"
+                              aria-label="With textarea"
+                              @bind=_taskRequest.Description>
+					</textarea>
+                    <ValidationMessage style="font-size: 0.7em;" For="() => _taskRequest.Description" />
+
+                </div>
+
+                <div class="modal-footer">
+                    <button 
+                        type="submit" 
+                        class="btn btn-primary"
+                        data-toggle="modal" 
+                        data-target="#snackbar-modal">
+                        @Resources.ModalFinishButton
+                    </button>
+                </div>
+
+                <Snackbar DataTarget="snackbar-modal" Message=@_messageUser IsSuccessOperation=@_isSuccessOperation/>
+            </div>
+        </div>
+    </div>
+</EditForm>

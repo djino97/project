@@ -1,0 +1,42 @@
+@using LT.DigitalOffice.GUI.Properties
+@using LT.DigitalOffice.GUI.Shared
+@using Services.ApiClients.MessageService
+
+<ModalWindow DataTarget="edit-workspace-center">
+    <Title>
+        Edit workspace
+    </Title>
+    <Body>
+        <label for="name">@Resources.WorkspaceName</label>
+        <input 
+            id="name" 
+            type="text" 
+            class="form-control"
+            value="@Workspace?.Name" 
+            aria-describedby="basic-addon1" 
+            @onchange="e => SetValueToPatchDocument(PatchWorkspaceDocumentPath._Name, e.Value)"/>
+
+        <label for="description">
+            @Resources.WorkspaceDescription
+        </label>
+        <textarea rows="3"
+            id="description" 
+            type="text" 
+            class="form-control"
+            value=@Workspace?.Description 
+            aria-describedby="basic-addon1"
+            @onchange="e => SetValueToPatchDocument(PatchWorkspaceDocumentPath._Description, e.Value)">
+        </textarea>
+
+        <button 
+            type="submite" 
+            class="btn btn-primary" 
+            data-toggle="modal" 
+            data-target="#snackbar-modal"
+            @onclick="EditWorkspace">
+            @Resources.ModalFinishButton
+        </button>
+    </Body>
+</ModalWindow>
+
+<Snackbar DataTarget="snackbar-modal" IsSuccessOperation=@_isSuccessOperation Message=@_messageUser />

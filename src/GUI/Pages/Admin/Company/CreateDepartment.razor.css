@@ -1,0 +1,23 @@
+﻿.create-department_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-group {
+    min-height: 80px;
+
+    margin: 5px 0;
+}
+
+.item-group_textarea {
+    min-height: 100px;
+
+    margin: 5px 0;
+}
+
+.create-department_actions-container {
+    width: 100%;
+
+    display: flex;
+    justify-content: flex-end;
+}

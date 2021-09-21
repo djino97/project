@@ -1,0 +1,127 @@
+@using LT.DigitalOffice.GUI.Properties
+
+@page "/backlog"
+
+@using LT.DigitalOffice.GUI.Pages.ProjectTask.CreateTask
+@using LT.DigitalOffice.GUI.Pages.ProjectTask.TaskWindow
+
+@inject NavigationManager UriHelper
+
+<div class="nav-scroller bg-body shadow-sm">
+    <nav class="nav nav-underline" aria-label="Tasks navigation">
+        <a 
+            href="javascript:void(0)"
+            class="nav-link" 
+            data-toggle="modal"
+            data-target="#сreate-task-modal-center">
+                @Resources.CreateNewWorkItem
+        </a>
+
+        <a 
+            class="nav-link" 
+            href="javascript:void(0)" 
+            @onclick="async () => await RefreshTasks(true)">
+            @Resources.FirstParameterBacklogSubmenu
+        </a>
+
+        <a 
+            class="nav-link" 
+            href="javascript:void(0)" 
+            @onclick="async () => await RefreshTasks(false)">
+            @Resources.SecondParameterBacklogSubmenu
+        </a>
+    </nav>
+</div>
+
+<CreateTaskModalWindow />
+    
+<TaskModalWindow @ref="_taskModalWindow"/>
+
+<div class="tasks">
+
+    <TasksFilters FindTaskByFilterParam="@SetFilterParam"/>
+
+    @if (_tasks is not null && _tasks.Any())
+    {
+        <div class="overflow-auto">
+            @foreach (var task in _tasks)
+            {
+                <div 
+                    class="task" 
+                    @onclick="() => _taskModalWindow.GetTaskAsync(task.Id)" 
+                    data-toggle="modal" 
+                    data-target="#task-modal-center">
+                    <div style="padding: 1% 2%;">
+
+                        <div class="task-content_general-info">
+                            <h2>#@task.Number</h2>
+                            <h2 id="task-name">@task.Name</h2>
+                            <h2 style="@(GetTaskTypeStyle(task.TypeName))">@task.TypeName</h2>
+                        </div>
+                        <div>
+                            <div class="task-content_additional-info">
+                                <h2>@Resources.TaskAssigned: 
+                                    <NavLink style=@UserLinkStyle href=@{$"/assigned/{task.AssignedTo?.Id}"}>
+                                        @(task.AssignedTo != null ? 
+                                            string.Join(" ", task.AssignedTo.FirstName, task.AssignedTo.LastName) : "-")
+                                    </NavLink>
+                                </h2>
+                                <h2>@Resources.TaskAuthor:
+                                    <NavLink style=@UserLinkStyle href=@{$"/assigned/{task.CreatedBy.Id}"}>
+                                        @(task.CreatedBy != null ? 
+                                            string.Join(" ", task.CreatedBy.FirstName, task.CreatedBy.LastName) : "-")
+                                    </NavLink>
+                                </h2>
+                                <h2>@Resources.TaskStatus: @task.StatusName</h2>
+                                <h2>@Resources.TaskPriority: @task.PriorityName</h2>
+                                <h2>@Resources.TaskLeadTime: @task.PlannedMinutes</h2>
+                                <h2>@Resources.TaskProjectName: @task.Project.ShortName</h2>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        
+        </div>
+
+            <div class="control-page">
+            <div id="items-per-page-lable"> 
+                Items per page:
+            </div>
+            <select id="items-per-page" @onchange="(ChangeEventArgs e) => SetTakeCount(e)" class="form-select">
+                <option selected="8">8</option>
+                <option value="16">16</option>
+                <option value="24">24</option>
+            </select>
+        <div>
+            <nav aria-label="Projects navigation">
+                <ul class="pagination">
+                    <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                    </li>
+                        @for(int i=0; i < Math.Ceiling(_totalCount / (double)_takeCount); i++)
+                        {
+                            int y = i;
+                            <li class="page-item"><a class="page-link" href="javascript:void(0)" @onclick="async () => await GetTasksPageAsync(y * _takeCount)">@(i + 1)</a></li>
+                        }
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                 </ul>
+            </nav>
+        </div>
+    </div>
+
+    @if (_tasks is not null && _tasks.Count >= _takeCount && _tasks.Count != _totalCount)
+    {
+        <button type="button" class="btn btn-primary" id="show-more" @onclick="GetTasksAsync">@Resources.ShowMore</button>
+    }
+    }
+    else
+    {
+        @("Work items not found.")
+    }
+
+
+</div>

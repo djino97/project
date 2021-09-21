@@ -1,0 +1,112 @@
+@media (min-width: 576px) 
+{
+    .modal-dialog {
+        max-width: 75%;
+    }
+}
+
+input {
+    height: 40px;
+}
+input[id="planned-time-task"] {
+    width: 25%;
+}
+
+.modal-content {
+    border: none;
+    border-radius: .5rem;
+}
+
+.modal-body {
+    padding: 1rem 2.5rem;
+}
+
+.modal-body, .modal-footer {
+    background-color: #f8f9fa;
+}
+
+.modal-header, .modal-footer {
+    border: none;
+    border-radius: .5rem .5rem 0 0;
+}
+
+.modal-footer {
+    padding: .75rem 2.5rem;
+}
+
+.modal-title {
+    color: white;
+    font-size: 1.4rem;
+}
+
+.modal-header {
+    padding: 0.5rem 2.5rem;
+    background-color: black;
+}
+
+ /* --- card ---- */
+.close {
+    color: white;
+    font-size: 26px;
+
+    border: none;
+    background-color: black;
+}
+
+.task-content {
+    margin: 15px 0;
+}
+
+.task-content_header {
+    height: 92px;
+}
+
+.card-header {
+    padding: 0;
+}
+
+.btn-link {
+    padding: .4rem 1rem;
+
+    width: -webkit-fill-available;
+    text-align: start;
+}
+
+.btn-link {
+    text-decoration: none;
+}
+
+.btn-check:focus+.btn, .btn:focus {
+    box-shadow: none;
+}
+
+.card {
+    border: none;
+
+    background-color: #f8f9fa;
+}
+
+.card-header {
+    background: linear-gradient(95deg, #c1c1c15e, transparent);
+
+    margin-bottom: 22px;
+
+    border: none;
+    border-radius: 10px;
+}
+
+/* ------------- */
+
+.card-body_user-data {
+    margin-right: 20px;
+    text-align: center;
+}
+
+div[id="collapseTwo"] .card-body {
+    display: flex;
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+    font-size: 30px;
+}

@@ -1,0 +1,74 @@
+﻿@page "/messages"
+@attribute [Authorize]
+
+@using LT.DigitalOffice.GUI.Services.Interfaces
+@using LT.DigitalOffice.GUI.Pages.Messages.Workspace
+@using LT.DigitalOffice.GUI.Services.ApiClients.MessageService
+
+@inject IMessageService messageService
+
+<div class="nav-scroller bg-body shadow-sm">
+    <nav class="nav nav-underline" aria-label="Messages navigation">
+        
+        <a
+            class="nav-link add-workspace-plus"
+            href="javascript:void(0)"
+            @onclick="OpenCreateWorkspaceWindow">
+            <i class="bi bi-plus-circle" style="font-size: 18px; color: black;"></i>
+        </a>
+
+        @foreach (var workspace in _workspaces)
+        {
+            @if (workspace.Image != null)
+            {
+                <img
+                    class="rounded-circle"
+                    src="data:image/@workspace.Image.Extension;base64,@workspace.Image.Content"
+                    />
+            }
+
+            <a class="nav-link" href="javascript:void(0)" @onclick="() => _workspace.GetWorkspace(workspace.Id)">
+                @WorkspaceNameHandler(workspace.Name)
+            </a>
+        }
+
+    </nav>
+</div>
+
+<Workspace @ref="_workspace"/>
+
+<CreateWorkspace IsOpenCreateWorkspaceWindow=@_isCreateWorkspaceWindow/>
+
+<EditWorkspaceModal Workspace=@_workspace?.workspace/>
+
+@code {
+    private bool _isCreateWorkspaceWindow;
+    private Workspace.Workspace _workspace;
+
+    private List<ShortWorkspaceInfo> _workspaces = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        FindResultResponseShortWorkspaceInfo response = await messageService.FindWorkspaceAsync(0, int.MaxValue);
+        _workspaces = response.Body.ToList();
+    }
+
+    private void OpenCreateWorkspaceWindow()
+    {
+        _isCreateWorkspaceWindow = !_isCreateWorkspaceWindow;
+
+        StateHasChanged();
+    }
+
+    private string WorkspaceNameHandler(string workspaceName)
+    {
+        string[] separateName = workspaceName.Split(" ");
+
+        @if (separateName.Length >= 3)
+        {
+            return string.Join(" ", separateName.Take(2));
+        }
+
+        return string.Join(" ", separateName);
+    }
+}

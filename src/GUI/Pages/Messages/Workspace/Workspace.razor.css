@@ -1,0 +1,18 @@
+.btn-toggle, .btn-toggle[aria-expanded="true"] {
+    color:white
+}
+
+.rounded-circle {
+    width: 60px;
+    margin-right: 10px;
+}
+
+button[id="dropdown-menu"] {
+    padding: 0px 4px;
+    background-color: #ffffff00;
+    border: none;
+}
+
+.fs-4 {
+    word-break: break-all;
+}

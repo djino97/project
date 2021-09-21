@@ -1,0 +1,12 @@
+label {
+    color: black
+}
+
+button {
+    float: right;
+    margin-top: 24px;
+}
+
+.form-check {
+    margin-top: 15px;
+}

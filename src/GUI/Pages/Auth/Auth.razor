@@ -1,0 +1,40 @@
+﻿@page "/login";
+
+@using LT.DigitalOffice.GUI.Services.Interfaces;
+@using LT.DigitalOffice.GUI.Properties;
+
+@inject IAuthService authService;
+@inject NavigationManager UriHelper;
+
+<EditForm Model="@_authData" OnValidSubmit="@HandleValidSubmitAsync">
+    <DataAnnotationsValidator />
+    <div class="auth-container">
+        <div class="auth-content">
+            <h1 class="h1">@Resources.SiteName</h1>
+            <div class="item-group">
+                <input @bind-value="_authData.LoginData"
+                       type="text"
+                       class="form-control"
+                       placeholder="@Resources.LoginOrEmailOrPhoneNumber"
+                       @onkeyup="@(async (k) => {
+                               if (k.Code == "Enter" || k.Code == "ArrowDown")
+                                   await _passwordInput.FocusAsync(); })" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => _authData.LoginData" />
+            </div>
+            <div class="item-group">
+                <input @bind-value="_authData.Password"
+                       @ref="_passwordInput"
+                       type="password"
+                       class="form-control"
+                       placeholder="@Resources.Password"
+                       @onkeyup="@(async (k) => { if (k.Code == "Enter") await HandleValidSubmitAsync(); })" />
+                <ValidationMessage style="font-size: 0.7em;" For="() => _authData.Password" />
+            </div>
+            <a>@Resources.ForgotYourPassword?</a>
+            <p class="error_text">@_message</p>
+            <button class="btn btn-primary" type="submit">@Resources.Login</button>
+        </div>
+    </div>
+</EditForm>
+
+

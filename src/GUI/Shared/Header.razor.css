@@ -1,0 +1,82 @@
+﻿.header {
+    width: 100%;
+    height: 11vh;
+
+    background-color: #7AC7FF;
+    display: flex;
+    align-items: center;
+}
+
+.header input {
+    width: 23%;
+    height: 50%;
+
+    margin-left: 9%;
+}
+
+.header img {
+    width: 60px;
+    height: 58px;
+
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+
+    background-color: #FFFFFF;
+
+    margin-left: 24%;
+}
+
+.header p {
+    margin-top: revert;
+    margin-left: 2%;
+}
+
+.header a {
+    color: #000000;
+}
+
+.header a:hover {
+    text-decoration: none;
+}
+
+.header a[id=Logout] {
+    margin-left: 5%;
+}
+
+.btn-secondary {
+    background-color: unset !important;
+    border-color: unset !important;
+    border: none;
+
+    padding-top: 0.5rem;
+}
+
+.btn-check:active+.btn-secondary:focus, 
+.btn-check:checked+.btn-secondary:focus, 
+.btn-secondary.active:focus, 
+.btn-secondary:active:focus, 
+.show>.btn-secondary.dropdown-toggle:focus {
+    box-shadow: none;
+
+    background-color: #717a84 !important;
+}
+
+.btn-secondary {
+    color: #ffffff8c !important;
+}
+
+a:focus {
+    background-color: #717a84;
+
+    border-radius: 5px;
+}
+
+.dropdown-show:focus {
+    background-color: #717a84;
+}
+
+a[id="user-name"]:focus {
+    background-color: unset;
+}

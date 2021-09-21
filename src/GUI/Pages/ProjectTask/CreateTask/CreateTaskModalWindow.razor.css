@@ -1,0 +1,118 @@
+@media (min-width: 576px) 
+{
+    .modal-dialog {
+        max-width: 75%;
+    }
+}
+
+.modal-content {
+    border: none;
+    border-radius: .5rem;
+}
+
+.modal-body {
+    padding: 1rem 2.5rem;
+}
+
+.modal-header, .modal-footer {
+    border: none;
+    border-radius: .5rem .5rem 0 0;
+}
+
+.modal-footer {
+    padding: .75rem 2.5rem;
+}
+
+.modal-title {
+    color: white;
+    font-size: 1.4rem;
+}
+
+.modal-header {
+    padding: 0.5rem 2.5rem;
+    background-color: black;
+}
+
+.close {
+    color: white;
+    font-size: 26px;
+
+    border: none;
+    background-color: black;
+}
+
+input, textarea, div[id="status"] button, 
+div[id="department"] button {
+    color:  black;
+    background-color: #f5f5f5;
+
+    border: none;
+}
+
+.modal-body_name-parent-input {
+    width: -webkit-fill-available;
+    height: 60px;
+}
+
+.modal-body_name-parent-input div:first-child {
+    width: 55%;
+    float: left;
+}
+
+.modal-body_name-parent-input div:last-child {
+    width: 35%;
+    float: right;
+}
+
+.modal-body_general-input {
+    width: 100%; 
+    display:flex;
+}
+
+.modal-body_additional-inputs {
+    margin-top: 25px;
+    margin-bottom: 26px;
+
+    height: 144px;
+}
+
+.modal-body_assignee-inputs {
+    width: 31%;
+    float: left;
+}
+
+.modal-body_assignee-inputs select[id="project"] {
+    margin-bottom: 25px;
+}
+
+.modal-body_general-properties-inputs {
+    margin-left: 13%;
+    float: left;
+    width: 21%;
+}
+
+.modal-body_general-properties-inputs select[id="status"] {
+    margin-bottom: 25px;
+}
+
+.modal-body_additional-properties-inputs {
+    float: right;
+    width: 21%;
+}
+
+.modal-body_additional-properties-inputs select[id="priority"] {
+    margin-bottom: 25px;
+}
+
+select {
+    border: none;
+    background-color: #f5f5f5;
+}
+
+button[type="submit"]
+{
+    float: right;
+    margin: 0;
+
+    width: 12%;
+}
